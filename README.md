@@ -72,6 +72,7 @@ Para executar a aplicação Java Café:
 	Aviso de estoque baixo para produtos com quantidade menor ou igual a 2.
 
  <p>Interface:</p>
+ 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/8de60462-bf9b-4b64-b77d-19ead24113c8)
 
 Adicionar/Atualizar um produto:
