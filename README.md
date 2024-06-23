@@ -1,4 +1,4 @@
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cleanpng.com%2Ffree%2Fjava-logo.html&psig=AOvVaw1UBAokxhUR3ijuyo6ed90N&ust=1719266279228000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwjUxYaQ3PKGAxWnH7kGHUR-AQIQjRx6BAgAEBU">
+![kisspng-java-computer-software-diapason-informatique-compu-java-5aea41f55601c1 6481215615253017493523](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/97fc292e-6537-47ee-99c8-bb0a63dac226)
 
 <h2>Java Café</h2>
 
