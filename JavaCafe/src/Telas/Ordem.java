@@ -1,6 +1,5 @@
 package Telas;
 
-import Interfaces.PedidoIU;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import javax.swing.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 
-public class Ordem implements PedidoIU, Serializable {
+public class Ordem implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<Produto> itens;
     private double total;
@@ -22,7 +21,6 @@ public class Ordem implements PedidoIU, Serializable {
     }
 
     // Adiciona um item ao pedido
-    @Override
     public void addItem(Produto produto, int quantidade) {
         if (produto.getQuantidade() >= quantidade) {
             produto.setQuantidade(produto.getQuantidade() - quantidade);
@@ -53,25 +51,21 @@ public class Ordem implements PedidoIU, Serializable {
     }
 
     // Retorna a lista de itens do pedido
-    @Override
     public List<Produto> getItens() {
         return itens;
     }
 
     // Calcula e retorna o total do pedido
-    @Override
     public double calTotal() {
         return total;
     }
 
     // Finaliza o pedido (exibe o total no console)
-    @Override
     public void finalizarPedido() {
         System.out.println("Pedido finalizado. Total: R$ " + calTotal());
     }
 
     // Salva os detalhes do pedido em um arquivo
-    @Override
     public void salvarPedido(String caminhoArquivo) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
