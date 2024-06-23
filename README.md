@@ -1,4 +1,5 @@
-![kisspng-java-computer-software-diapason-informatique-compu-java-5aea41f55601c1 6481215615253017493523](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/97fc292e-6537-47ee-99c8-bb0a63dac226)
+![java-logo-1](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/bcd5e6ec-54e6-4508-88e7-7026c1f5573f)
+
 
 <h2>Java Café</h2>
 
