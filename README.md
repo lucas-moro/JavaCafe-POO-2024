@@ -35,11 +35,11 @@ Para executar o Java Café, você precisará dos seguintes requisitos:
 
 Para executar a aplicação Java Café:
 
-	Navegue até a classe Main.java na estrutura do projeto.
+	Dentro da pasta Main, navegue até a classe ClienteMain.java (para abrir interface de cliente) ou GerenteMain.java (para abrir interface de gerente) na estrutura do projeto .
 
-	Execute a classe Main como uma aplicação Java.
+	Execute a classe correspondente como uma aplicação Java.
 
-	A janela principal do Java Café será aberta, permitindo que você escolha entre as interfaces de Cliente e Gerente.
+	A janela do Java Café correspondente a sua escolha será aberta, permitindo que você navegue entre as opções.
 
  Ao executar a aplicação uma janela se abrirá com a seguinte interface:
 
