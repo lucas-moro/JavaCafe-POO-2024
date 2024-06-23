@@ -6,11 +6,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-// Classe que representa a interface do gerente
+/** Classe que representa a interface do gerente */
 public class TelaGerente extends JFrame {
     private static TelaGerente instance;
     private Listagem listagem;
@@ -65,7 +67,7 @@ public class TelaGerente extends JFrame {
 
         // Configuração dos botões no painel
         JButton cadastrarButton = new JButton("Adicionar / Atualizar Produto");
-        cadastrarButton.addActionListener(e -> abrirTelaCadastro());
+        cadastrarButton.addActionListener(e -> abrirDialogoCadastro());
         JButton relatorioButton = new JButton("Relatório de Vendas");
         relatorioButton.addActionListener(e -> exibirRelatorioVendas());
         JButton sairButton = new JButton("Sair");
@@ -89,10 +91,76 @@ public class TelaGerente extends JFrame {
     }
 
     /**
-     * Abre a tela de cadastro de produtos.
+     * Abre o diálogo de cadastro de produtos.
      */
-    private void abrirTelaCadastro() {
-        new TelaNewProduto(this, listagem);
+    private void abrirDialogoCadastro() {
+        JDialog dialogoCadastro = new JDialog(this, "Adicionar / Atualizar Produto", true);
+        dialogoCadastro.setSize(350, 300);
+        dialogoCadastro.setLayout(new BorderLayout());
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 2));
+
+        // Configuração dos elementos no painel
+        JLabel nomeLabel = new JLabel("Nome do Produto:");
+        JTextField nomeField = new JTextField();
+        JLabel precoLabel = new JLabel("Preço do Produto:");
+        JTextField precoField = new JTextField();
+        JLabel quantidadeLabel = new JLabel("Quantidade:");
+        JTextField quantidadeField = new JTextField();
+        JButton cadastrarButton = new JButton("Adicionar/Atualizar");
+
+        // Escuta de ações no botão de cadastrar/atualizar
+        cadastrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = nomeField.getText();
+                double preco;
+                int quantidade;
+
+                // Tentativa de converter texto para números
+                try {
+                    preco = Double.parseDouble(precoField.getText());
+                    quantidade = Integer.parseInt(quantidadeField.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(dialogoCadastro, "Por favor, insira valores válidos. O preço deve ser um número com ponto (.) e a quantidade deve ser um número inteiro.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Cria um novo objeto Produto com os dados fornecidos
+                Produto produto = new Produto(nome, preco, quantidade);
+                listagem.addProduto(produto); // Adiciona o produto à listagem
+                JOptionPane.showMessageDialog(dialogoCadastro, "Produto cadastrado/atualizado com sucesso!");
+
+                try {
+                    listagem.salvarInv(Caminhos.INVENTARIO_FILE); // Salva o inventário atualizado
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                atualizarTabelaEstoque(); // Atualiza a tabela de estoque na tela de gerente
+                TelaCliente.atualizarComboProdutos(listagem); // Atualiza o combo de produtos na tela de cliente
+
+                dialogoCadastro.dispose(); // Fecha o diálogo de cadastro
+            }
+        });
+
+        // Adiciona os elementos no painel
+        panel.add(nomeLabel);
+        panel.add(nomeField);
+        panel.add(precoLabel);
+        panel.add(precoField);
+        panel.add(quantidadeLabel);
+        panel.add(quantidadeField);
+        panel.add(new JLabel()); // Espaço em branco para ajuste de layout
+        panel.add(cadastrarButton);
+
+        dialogoCadastro.add(panel, BorderLayout.CENTER);
+
+        // Centraliza o diálogo na tela
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        dialogoCadastro.setLocation((screenSize.width - dialogoCadastro.getWidth()) / 2, (screenSize.height - dialogoCadastro.getHeight()) / 2);
+        dialogoCadastro.setVisible(true);
     }
 
     /**
