@@ -5,12 +5,14 @@ import Interfaces.ProdutoIU;
 public class Produto implements ProdutoIU {
     private int quantia;
     private String nome;
+    private float imposto;
     private double preco;
 
     // Construtor que inicializa os atributos do produto
     public Produto(String nome, double preco, int quantia) {
         this.nome = nome;
-        this.preco = preco;
+        this.imposto = (float) (0.1 * preco);
+        this.preco = preco + imposto;
         this.quantia = quantia;
     }
 
