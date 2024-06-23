@@ -24,14 +24,14 @@ public class Ordem implements PedidoIU, Serializable {
     // Adiciona um item ao pedido
     @Override
     public void addItem(Produto produto, int quantidade) {
-        if (produto.quantidadePegar() >= quantidade) {
-            produto.quantidadeDefinir(produto.quantidadePegar() - quantidade);
+        if (produto.getQuantidade() >= quantidade) {
+            produto.setQuantidade(produto.getQuantidade() - quantidade);
             for (int i = 0; i < quantidade; i++) {
                 itens.add(produto);
             }
-            total += produto.valor() * quantidade;
+            total += produto.getPreco() * quantidade;
         } else {
-            JOptionPane.showMessageDialog(null, "Nao sera possivel, temos apenas " + produto.quantidadePegar() + " unidades \n no estoque para o produto " + produto.nomeGet(), "Estoque Insuficiente", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nao sera possivel, temos apenas " + produto.getQuantidade() + " unidades \n no estoque para o produto " + produto.getNome(), "Estoque Insuficiente", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -40,10 +40,10 @@ public class Ordem implements PedidoIU, Serializable {
         int count = 0;
         for (int i = itens.size() - 1; i >= 0; i--) {
             Produto p = itens.get(i);
-            if (p.nomeGet().equals(nomeProduto) && count < quantidade) {
+            if (p.getNome().equals(nomeProduto) && count < quantidade) {
                 itens.remove(i);
-                p.quantidadeDefinir(p.quantidadePegar() + 1);
-                total -= p.valor();
+                p.setQuantidade(p.getQuantidade() + 1);
+                total -= p.getPreco();
                 count++;
             }
         }
@@ -84,8 +84,8 @@ public class Ordem implements PedidoIU, Serializable {
             Map<String, Double> precoMap = new HashMap<>();
 
             for (Produto p : itens) {
-                quantidadeMap.put(p.nomeGet(), quantidadeMap.getOrDefault(p.nomeGet(), 0) + 1);
-                precoMap.put(p.nomeGet(), p.valor());
+                quantidadeMap.put(p.getNome(), quantidadeMap.getOrDefault(p.getNome(), 0) + 1);
+                precoMap.put(p.getNome(), p.getPreco());
             }
 
             for (String nome : quantidadeMap.keySet()) {
@@ -109,7 +109,7 @@ public class Ordem implements PedidoIU, Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Pedido:\n");
         for (Produto p : itens) {
-            sb.append(p.nomeGet()).append(" - R$ ").append(p.valor()).append("\n");
+            sb.append(p.getNome()).append(" - R$ ").append(p.getPreco()).append("\n");
         }
         return sb.toString();
     }
