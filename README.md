@@ -57,7 +57,7 @@ Para executar a aplicação Java Café:
 <h3>Tela do Gerente:</h3>
 
 <p>Entrar com a senha "admin"</p>
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/14b25c9b-bb57-4968-8421-359b4d8849aa)
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/07b6639a-b041-4ed7-bdcc-2fe101da109d)
 
 	Visualizar e atualizar o estoque de produtos.
 	Adicionar ou atualizar produtos no inventário.
