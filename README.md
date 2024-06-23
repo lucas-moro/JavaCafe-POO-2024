@@ -1,3 +1,5 @@
+<img src="[caminho/para/imagem.jpg](https://camo.githubusercontent.com/bb4de3ce6d5d67c14fadacc3fe0f3eddcf2eb840af7902db35631293e4f3878e/68747470733a2f2f63646e2e69636f6e2d69636f6e732e636f6d2f69636f6e73322f323431352f504e472f3531322f6a6176615f6f726967696e616c5f776f72646d61726b5f6c6f676f5f69636f6e5f3134363435392e706e67)">
+
 <h2>Java Café</h2>
 
 Java Café é um sistema de gerenciamento de um café, desenvolvido em Java, utilizando a biblioteca Swing para a interface gráfica. O sistema possui duas interfaces principais: uma para clientes realizarem pedidos e outra para gerentes administrarem o estoque e visualizarem relatórios de vendas.
