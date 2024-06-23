@@ -14,25 +14,19 @@ public class Produto implements ProdutoIU {
         this.quantia = quantia;
     }
 
-    // Getter para nome
+    // Getters e setters
     @Override
     public String getNome() {
         return nome;
     }
-
-    // Getter para quantidade
     @Override
     public int getQuantidade() {
         return quantia;
     }
-
-    // Setter para quantidade
     @Override
     public void setQuantidade(int quantidade) {
         this.quantia = quantidade;
     }
-
-    // Getter para preço
     @Override
     public double getPreco() {
         return preco;
