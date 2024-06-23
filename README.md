@@ -46,6 +46,11 @@ Para executar a aplicação Java Café:
 <h2>Funcionalidades</h2>
 <h3>Tela do Cliente:</h3>
 
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/037da0fe-ec0e-480b-aae6-50e8248e1e4c)
+
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/6da9c2c3-2f7d-490d-8bb3-43b2338a24b7)
+
+
 	Selecionar produtos e quantidades.
 	Adicionar produtos ao pedido.
 	Finalizar pedido e visualizar o total.
