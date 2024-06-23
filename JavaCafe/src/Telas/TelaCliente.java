@@ -125,7 +125,9 @@ public class TelaCliente extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation(0, screenSize.height - getHeight() - 50);
+        int x = (screenSize.width - getWidth()) / 2;
+        int y = (screenSize.height - getHeight()) / 2;
+        setLocation(x, y);
         setVisible(true);
     }
 
