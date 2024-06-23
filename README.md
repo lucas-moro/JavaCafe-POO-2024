@@ -41,9 +41,7 @@ Para executar a aplicação Java Café:
 
 	A janela do Java Café correspondente a sua escolha será aberta, permitindo que você navegue entre as opções.
 
- Ao executar a aplicação uma janela se abrirá com a seguinte interface:
-
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/c62d4e50-277e-4faf-b354-becbcce4eea6)
+ Ao executar a aplicação de acordo com a classe escolhida, uma janela se abrirá com as seguintes interfaces:
 
 <h2>Funcionalidades</h2>
 <h3>Tela do Cliente:</h3>
