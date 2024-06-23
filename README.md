@@ -4,15 +4,15 @@
 
 <p align="center">Java Café é um sistema de gerenciamento de um café, desenvolvido em Java, utilizando a biblioteca Swing para a interface gráfica. O sistema possui duas interfaces principais: uma para clientes realizarem pedidos e outra para gerentes administrarem o estoque e visualizarem relatórios de vendas.</p>
 
-Índice
+<h2>Índice</h2>
 
-	Requisitos
-	Instalação
-	Execução
-	Estrutura do Projeto
-	Funcionalidades
-    	Tela do Cliente
-    	Tela do Gerente
+	- Requisitos
+	- Instalação
+	- Execução
+	- Funcionalidades
+    	- Tela do Cliente
+    	- Tela do Gerente
+    	- Estrutura do Projeto
 
 <h2>Requisitos</h2>
 
@@ -46,7 +46,7 @@ Para executar a aplicação Java Café:
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/c62d4e50-277e-4faf-b354-becbcce4eea6)
 
 <h2>Funcionalidades</h2>
-Tela do Cliente:
+<h3>Tela do Cliente:</h3>
 
 	Selecionar produtos e quantidades.
 	Adicionar produtos ao pedido.
@@ -54,7 +54,7 @@ Tela do Cliente:
 	Mensagem de confirmação de pedido realizado com sucesso.
 	Opção para sair da tela do cliente.
 
-Tela do Gerente:
+<h3>Tela do Gerente:</h3>
 
 Entrar com a senha "admin"
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/14b25c9b-bb57-4968-8421-359b4d8849aa)
