@@ -3,9 +3,8 @@ package Telas;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import Interfaces.InventarioIU;
 
-public class Listagem implements InventarioIU, Serializable {
+public class Listagem implements Serializable {
     private static final long serialVersionUID = 1L;
     private Map<String, Produto> produtos;
 
@@ -15,7 +14,6 @@ public class Listagem implements InventarioIU, Serializable {
     }
 
     // Adiciona um produto ao mapa
-    @Override
     public void addProduto(Produto produto) {
         produtos.put(produto.getNome(), produto);
     }
