@@ -1,8 +1,6 @@
 package Telas;
 
-import Interfaces.ProdutoIU;
-
-public class Produto implements ProdutoIU {
+public class Produto {
     private int quantia;
     private String nome;
     private float imposto;
@@ -17,25 +15,20 @@ public class Produto implements ProdutoIU {
     }
 
     // Getters e setters
-    @Override
     public String getNome() {
         return nome;
     }
-    @Override
     public int getQuantidade() {
         return quantia;
     }
-    @Override
     public void setQuantidade(int quantidade) {
         this.quantia = quantidade;
     }
-    @Override
     public double getPreco() {
         return preco;
     }
 
     // Representação em string do produto
-    @Override
     public String toString() {
         return nome + " - R$ " + preco + " (Estoque: " + quantia + ")";
     }
