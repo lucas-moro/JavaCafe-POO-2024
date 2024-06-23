@@ -17,7 +17,7 @@ public class Listagem implements InventarioIU, Serializable {
     // Adiciona um produto ao mapa
     @Override
     public void addProduto(Produto produto) {
-        produtos.put(produto.nomeGet(), produto);
+        produtos.put(produto.getNome(), produto);
     }
 
     // Pesquisa um produto pelo nome
@@ -50,7 +50,7 @@ public class Listagem implements InventarioIU, Serializable {
     public void salvarInv(String caminhoArquivo) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
             for (Produto produto : produtos.values()) {
-                writer.write(produto.nomeGet() + "," + produto.valor() + "," + produto.quantidadePegar());
+                writer.write(produto.getNome() + "," + produto.getPreco() + "," + produto.getQuantidade());
                 writer.newLine();
             }
         }
