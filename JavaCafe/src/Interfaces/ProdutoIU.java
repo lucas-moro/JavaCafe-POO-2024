@@ -1,8 +1,8 @@
 package Interfaces;
 
 public interface ProdutoIU {
-    public int quantidadePegar();
-    public double valor();
-    public void quantidadeDefinir(int quantidade);
-    public String nomeGet();
+    public String getNome();
+    public double getPreco();
+    public int getQuantidade();
+    public void setQuantidade(int quantidade);
 }

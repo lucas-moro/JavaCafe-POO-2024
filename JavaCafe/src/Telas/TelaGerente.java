@@ -100,7 +100,7 @@ public class TelaGerente extends JFrame {
      */
     private void exibirRelatorioVendas() {
         JFrame relatorioFrame = new JFrame("Relatório");
-        relatorioFrame.setSize(300, 400);
+        relatorioFrame.setSize(320, 400);
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
 
@@ -132,7 +132,7 @@ public class TelaGerente extends JFrame {
     public void atualizarTabelaEstoque() {
         tabelaModel.setRowCount(0); // Limpa a tabela
         for (Produto p : listagem.getProdutos().values()) {
-            tabelaModel.addRow(new Object[]{p.nomeGet(), p.valor(), p.quantidadePegar(), "DELETAR"});
+            tabelaModel.addRow(new Object[]{p.getNome(), p.getPreco(), p.getQuantidade(), "DELETAR"});
         }
         verificarEstoqueBaixo();
     }
@@ -142,8 +142,8 @@ public class TelaGerente extends JFrame {
      */
     private void verificarEstoqueBaixo() {
         for (Produto p : listagem.getProdutos().values()) {
-            if (p.quantidadePegar() <= 2) {
-                JOptionPane.showMessageDialog(this, "O estoque do produto " + p.nomeGet() + " está baixo. Por favor, reponha o estoque.", "Aviso de Estoque Baixo", JOptionPane.WARNING_MESSAGE);
+            if (p.getQuantidade() <= 2) {
+                JOptionPane.showMessageDialog(this, "O estoque do produto " + p.getNome() + " está baixo. Por favor, reponha o estoque.", "Aviso de Estoque Baixo", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

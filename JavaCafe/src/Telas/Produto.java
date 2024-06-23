@@ -2,7 +2,6 @@ package Telas;
 
 import Interfaces.ProdutoIU;
 
-// Classe que representa um produto
 public class Produto implements ProdutoIU {
     private int quantia;
     private String nome;
@@ -15,31 +14,31 @@ public class Produto implements ProdutoIU {
         this.quantia = quantia;
     }
 
-    // Retorna o nome do produto
+    // Getter para nome
     @Override
-    public String nomeGet() {
+    public String getNome() {
         return nome;
     }
 
-    // Retorna a quantidade em estoque do produto
+    // Getter para quantidade
     @Override
-    public int quantidadePegar() {
+    public int getQuantidade() {
         return quantia;
     }
 
-    // Define a quantidade em estoque do produto
+    // Setter para quantidade
     @Override
-    public void quantidadeDefinir(int quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantia = quantidade;
     }
 
-    // Retorna o preço do produto
+    // Getter para preço
     @Override
-    public double valor() {
+    public double getPreco() {
         return preco;
     }
 
-    // Retorna uma representação em string do produto
+    // Representação em string do produto
     @Override
     public String toString() {
         return nome + " - R$ " + preco + " (Estoque: " + quantia + ")";

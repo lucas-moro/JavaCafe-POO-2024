@@ -134,7 +134,7 @@ public class TelaCliente extends JFrame {
         if (comboProdutos != null) {
             comboProdutos.removeAllItems();
             for (Produto p : listagem.getProdutos().values()) {
-                comboProdutos.addItem(p.nomeGet());
+                comboProdutos.addItem(p.getNome());
             }
         }
     }
@@ -147,8 +147,8 @@ public class TelaCliente extends JFrame {
         Map<String, Double> valorMap = new HashMap<>();
 
         for (Produto p : ordemAtual.getItens()) {
-            quantidadeMap.put(p.nomeGet(), quantidadeMap.getOrDefault(p.nomeGet(), 0) + 1);
-            valorMap.put(p.nomeGet(), valorMap.getOrDefault(p.nomeGet(), 0.0) + p.valor());
+            quantidadeMap.put(p.getNome(), quantidadeMap.getOrDefault(p.getNome(), 0) + 1);
+            valorMap.put(p.getNome(), valorMap.getOrDefault(p.getNome(), 0.0) + p.getPreco());
         }
 
         for (String nome : quantidadeMap.keySet()) {
