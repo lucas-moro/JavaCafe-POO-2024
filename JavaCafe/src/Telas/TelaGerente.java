@@ -81,9 +81,10 @@ public class TelaGerente extends JFrame {
         add(topPanel, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
 
-        // Centraliza o frame na tela
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation(screenSize.width - getWidth(), screenSize.height - getHeight() - 50);
+        int x = (screenSize.width - getWidth()) / 2;
+        int y = (screenSize.height - getHeight()) / 2;
+        setLocation(x, y);
         setVisible(true);
 
         // Verifica os estoques para exibir o alerta
@@ -200,7 +201,7 @@ public class TelaGerente extends JFrame {
     public void atualizarTabelaEstoque() {
         tabelaModel.setRowCount(0); // Limpa a tabela
         for (Produto p : listagem.getProdutos().values()) {
-            tabelaModel.addRow(new Object[]{p.getNome(), p.getPreco(), p.getQuantidade(), "DELETAR"});
+            tabelaModel.addRow(new Object[]{p.getNome(), String.format("%.2f", p.getPreco()), p.getQuantidade(), "DELETAR"});
         }
         verificarEstoqueBaixo();
     }
