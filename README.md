@@ -58,7 +58,8 @@ Para executar a aplicação Java Café:
 
 <p>Entrar com a senha "admin"</p>
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/07b6639a-b041-4ed7-bdcc-2fe101da109d)
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/eb75d091-c053-4770-b389-ac63356e6731)
+
 
 	Visualizar e atualizar o estoque de produtos.
 	Adicionar ou atualizar produtos no inventário.
