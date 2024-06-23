@@ -79,8 +79,12 @@ Adicionar/Atualizar um produto:
 
 Gerando Relatório de vendas:
 
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/b11d2b87-db9e-4666-8312-886effe915db)
+
+
 Deletando um produto:
-![Uploading image.png…]()
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/aeb218b3-ebd1-4a20-85f4-bf0ca0841b9c)
+
 
 <h2>Estrutura do Projeto</h2>
 
