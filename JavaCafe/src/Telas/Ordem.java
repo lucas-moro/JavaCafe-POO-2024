@@ -1,3 +1,6 @@
+/**
+ * Classe que representa um pedido de produtos.
+ */
 package Telas;
 
 import java.util.List;
@@ -14,13 +17,20 @@ public class Ordem implements Serializable {
     private List<Produto> itens;
     private double total;
 
-    // Construtor que inicializa a lista de itens e o total
+    /**
+     * Construtor padrão que inicializa a lista de itens e o total do pedido.
+     */
     public Ordem() {
         this.itens = new ArrayList<>();
         this.total = 0.0;
     }
 
-    // Adiciona um item ao pedido
+    /**
+     * Adiciona um item ao pedido.
+     * Se a quantidade desejada for maior que a quantidade disponível em estoque, exibe uma mensagem de erro.
+     * @param produto o produto a ser adicionado
+     * @param quantidade a quantidade do produto a ser adicionada
+     */
     public void addItem(Produto produto, int quantidade) {
         if (produto.getQuantidade() >= quantidade) {
             produto.setQuantidade(produto.getQuantidade() - quantidade);
@@ -33,7 +43,12 @@ public class Ordem implements Serializable {
         }
     }
 
-    // Remove um item do pedido
+    /**
+     * Remove um item do pedido.
+     * Se a quantidade desejada para remoção exceder a quantidade no pedido, exibe uma mensagem de erro.
+     * @param nomeProduto o nome do produto a ser removido
+     * @param quantidade a quantidade do produto a ser removida
+     */
     public void removerItem(String nomeProduto, int quantidade) {
         int count = 0;
         for (int i = itens.size() - 1; i >= 0; i--) {
@@ -50,22 +65,34 @@ public class Ordem implements Serializable {
         }
     }
 
-    // Retorna a lista de itens do pedido
+    /**
+     * Retorna a lista de itens do pedido.
+     * @return a lista de itens do pedido
+     */
     public List<Produto> getItens() {
         return itens;
     }
 
-    // Calcula e retorna o total do pedido
+    /**
+     * Calcula e retorna o total do pedido.
+     * @return o total do pedido
+     */
     public double calTotal() {
         return total;
     }
 
-    // Finaliza o pedido (exibe o total no console)
+    /**
+     * Finaliza o pedido e exibe o total no console.
+     */
     public void finalizarPedido() {
         System.out.println("Pedido finalizado. Total: R$ " + calTotal());
     }
 
-    // Salva os detalhes do pedido em um arquivo
+    /**
+     * Salva os detalhes do pedido em um arquivo.
+     * @param caminhoArquivo o caminho do arquivo onde os detalhes do pedido serão salvos
+     * @throws IOException se houver um erro ao escrever no arquivo
+     */
     public void salvarPedido(String caminhoArquivo) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -97,7 +124,10 @@ public class Ordem implements Serializable {
         }
     }
 
-    // Retorna a representação em string do pedido
+    /**
+     * Retorna a representação em string do pedido.
+     * @return a representação em string do pedido
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
