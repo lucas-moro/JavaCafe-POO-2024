@@ -8,6 +8,7 @@ public class Produto {
     private String nome;
     private float imposto;
     private double preco;
+    private double precoComImposto;
 
     /**
      * Construtor que inicializa os atributos do produto.
@@ -19,7 +20,8 @@ public class Produto {
     public Produto(String nome, double preco, int quantia) {
         this.nome = nome;
         this.imposto = (float) (0.1 * preco);
-        this.preco = preco + imposto;
+        this.preco = preco;
+        this.precoComImposto = preco + imposto;
         this.quantia = quantia;
     }
 
@@ -48,11 +50,19 @@ public class Produto {
     }
 
     /**
-     * Retorna o preço total do produto (incluindo impostos).
-     * @return o preço total do produto
+     * Retorna o preço total do produto.
+     * @return o preço total do produto.
      */
     public double getPreco() {
         return preco;
+    }
+
+    /**
+     * Retorna o preço do produto com impostos.
+     * @return o preço do produto com impostos.
+     */
+    public double getPrecoComImposto() {
+        return precoComImposto;
     }
 
     /**
