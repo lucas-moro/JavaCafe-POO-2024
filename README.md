@@ -94,16 +94,18 @@ JavaCafe-POO-2024
 └── src
 	├── Caminhos.java
 	├── Listagem.java
-	├── Main.java
+	├── ClienteMain.java
+	├── GerenteMain.java
 	├── Produto.java
 	├── Ordem.java
 	└── Telas
-    	├── TelaCliente.java
-    	└── TelaGerente.java
+    		└── TelaCliente.java
+    		└── TelaGerente.java
 
 	Caminhos.java: Define os caminhos para os arquivos de inventário e pedidos.
 	Listagem.java: Gerencia o inventário dos produtos.
-	Main.java: Classe principal que inicializa a aplicação.
+	ClienteMain.java: Classe que inicializa a aplicação do Cliente.
+	GerenteMain.java: Classe que inicializa a aplicação do Gerente.
 	Produto.java: Classe que representa um produto.
 	Ordem.java: Classe que representa um pedido.
-	Telas/: Contém as classes das interfaces gráficas (TelaCliente e TelaGerente).
+	Telas: Contém as classes das interfaces gráficas (TelaCliente e TelaGerente).
