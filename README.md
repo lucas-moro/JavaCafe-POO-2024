@@ -46,9 +46,9 @@ Para executar a aplicação Java Café:
 <h2>Funcionalidades</h2>
 <h3>Tela do Cliente:</h3>
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/037da0fe-ec0e-480b-aae6-50e8248e1e4c)
+**atualizar foto (tela do cliente)
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/6da9c2c3-2f7d-490d-8bb3-43b2338a24b7)
+**atualizar foto (pedido realizado)
 
 
 	Selecionar produtos e quantidades.
@@ -63,24 +63,27 @@ Para executar a aplicação Java Café:
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/eb75d091-c053-4770-b389-ac63356e6731)
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/8b7eb1b0-c65d-4eb7-a986-3abf7fc56dab)
+**atualizar foto (tela do gerente)
 
  <p>Interface:</p>
  
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/8de60462-bf9b-4b64-b77d-19ead24113c8)
+**atualizar foto (tela do gerente)
 
 <p>Adicionar/Atualizar um produto:</p>
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/30eb73c7-08b7-480d-9029-60194a301c2a)
+**atualizar foto (adicionar produto)
+
+**atualizar foto (atualizar produto)
 
 
 Gerando Relatório de vendas:
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/b11d2b87-db9e-4666-8312-886effe915db)
+**atualizar foto (relatorio de vendas)
 
 
 Deletando um produto:
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/aeb218b3-ebd1-4a20-85f4-bf0ca0841b9c)
+
+**atualizar foto (excluir produto)
 
 	Visualizar e atualizar o estoque de produtos.
 	Adicionar ou atualizar produtos no inventário.
