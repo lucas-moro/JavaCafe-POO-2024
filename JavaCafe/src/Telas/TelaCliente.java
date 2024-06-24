@@ -10,79 +10,28 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-// Classe que representa a interface do cliente
 public class TelaCliente extends JFrame {
     private static Ordem ordemAtual;
     private static JTable tabelaPedido;
     private static DefaultTableModel tabelaModel;
     private static JLabel totalLabel;
-    private static JComboBox<String> comboProdutos;
 
-    // Construtor que inicializa a tela do cliente
     public TelaCliente(Listagem listagem) {
         ordemAtual = new Ordem();
 
         setTitle("Comprador");
-        setSize(600, 600);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new FlowLayout());
-
-        comboProdutos = new JComboBox<>();
-        atualizarComboProdutos(listagem);
-
-        if (comboProdutos.getItemCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Desculpe, guarde um momento.", "Produtos indisponiveis", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            return;
-        }
-
-        JTextField quantidadeField = new JTextField(5);
-        JButton adicionarButton = new JButton("Adicionar ao Pedido");
         JButton finalizarButton = new JButton("Finalizar Pedido");
-        JButton sairButton = new JButton("Sair");
 
-        tabelaModel = new DefaultTableModel(new Object[]{"Produto", "Quantidade", "Valor", ""}, 0);
+        // Modelo da tabela de pedidos, removendo a coluna "Remover"
+        tabelaModel = new DefaultTableModel(new Object[]{"Produto", "Quantidade", "Valor"}, 0);
         tabelaPedido = new JTable(tabelaModel);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tabelaPedido.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        tabelaPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = tabelaPedido.rowAtPoint(e.getPoint());
-                int column = tabelaPedido.columnAtPoint(e.getPoint());
-                if (column == 3) {
-                    String nomeProduto = (String) tabelaModel.getValueAt(row, 0);
-                    int quantidade = (int) tabelaModel.getValueAt(row, 1);
-                    int confirm = JOptionPane.showConfirmDialog(null, "Você realmente deseja remover " + quantidade + " unidades do produto " + nomeProduto + "?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        ordemAtual.removerItem(nomeProduto, quantidade);
-                        atualizarAreaPedido();
-                        TelaGerente telaGerente = TelaGerente.getInstance();
-                        if (telaGerente != null) {
-                            telaGerente.atualizarTabelaEstoque();
-                        }
-                    }
-                }
-            }
-        });
-
-        adicionarButton.addActionListener(e -> {
-            String nomeProduto = (String) comboProdutos.getSelectedItem();
-            int quantidade = Integer.parseInt(quantidadeField.getText());
-            Produto produto = listagem.pesquisarProduto(nomeProduto);
-            if (produto != null) {
-                ordemAtual.addItem(produto, quantidade);
-                atualizarAreaPedido();
-                TelaGerente telaGerente = TelaGerente.getInstance();
-                if (telaGerente != null) {
-                    telaGerente.atualizarTabelaEstoque();
-                }
-            }
-        });
+        tabelaPedido.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
         finalizarButton.addActionListener(e -> {
             if (ordemAtual.calTotal() > 0) {
@@ -102,26 +51,71 @@ public class TelaCliente extends JFrame {
             }
         });
 
-        sairButton.addActionListener(e -> {
-            dispose();
-        });
+        JPanel productsPanel = new JPanel();
+        productsPanel.setLayout(new GridBagLayout()); // Usando GridBagLayout para alinhamento preciso
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5); // Definindo um pequeno espaço de 5px ao redor dos componentes
 
-        topPanel.add(new JLabel("Produto:"));
-        topPanel.add(comboProdutos);
-        topPanel.add(new JLabel("Quantidade:"));
-        topPanel.add(quantidadeField);
-        topPanel.add(adicionarButton);
-        topPanel.add(finalizarButton);
-        topPanel.add(sairButton);
+        int row = 0;
+        for (Produto produto : listagem.getProdutos().values()) {
+            gbc.gridx = 0;
+            gbc.gridy = row;
+            gbc.weightx = 1.0; // Faz com que o label ocupe o espaço disponível
+            String produtoInfo = String.format("%s - R$ %.2f (Estoque: %d)", produto.getNome(), produto.getPreco(), produto.getQuantidade());
+            JLabel productLabel = new JLabel(produtoInfo);
+            productsPanel.add(productLabel, gbc);
 
-        JPanel bottomPanel = new JPanel(new BorderLayout());
+            gbc.gridx = 1;
+            gbc.gridy = row;
+            gbc.weightx = 0; // Não expandir os botões
+            JButton addButton = new JButton("Adicionar");
+            productsPanel.add(addButton, gbc);
+
+            gbc.gridx = 2;
+            gbc.gridy = row;
+            JButton removeButton = new JButton("Remover");
+            productsPanel.add(removeButton, gbc);
+
+            // Incrementa a linha para o próximo produto
+            row++;
+
+            // Adiciona os listeners para os botões
+            addButton.addActionListener(e -> {
+                int quantidade = 1; // Quantidade padrão ao adicionar um produto
+                ordemAtual.addItem(produto, quantidade);
+                atualizarAreaPedido();
+                TelaGerente telaGerente = TelaGerente.getInstance();
+                if (telaGerente != null) {
+                    telaGerente.atualizarTabelaEstoque();
+                }
+            });
+
+            removeButton.addActionListener(e -> {
+                int quantidade = 1; // Quantidade padrão ao remover um produto
+                ordemAtual.removerItem(produto.getNome(), quantidade);
+                atualizarAreaPedido();
+                TelaGerente telaGerente = TelaGerente.getInstance();
+                if (telaGerente != null) {
+                    telaGerente.atualizarTabelaEstoque();
+                }
+            });
+        }
+
+        JScrollPane scrollPane = new JScrollPane(productsPanel);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+
         totalLabel = new JLabel("Total: R$ 0.00");
-        totalLabel.setFont(new Font("Serif", Font.BOLD, 16));
-        bottomPanel.add(totalLabel, BorderLayout.WEST);
-        bottomPanel.add(finalizarButton, BorderLayout.EAST);
+        totalLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        bottomPanel.add(totalLabel);
 
-        add(topPanel, BorderLayout.NORTH);
-        add(new JScrollPane(tabelaPedido), BorderLayout.CENTER);
+        finalizarButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        bottomPanel.add(finalizarButton);
+
+        add(scrollPane, BorderLayout.NORTH);  // Painel com a lista de produtos em cima
+        add(new JScrollPane(tabelaPedido), BorderLayout.CENTER);  // Tabela de pedidos ao centro
         add(bottomPanel, BorderLayout.SOUTH);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -131,17 +125,6 @@ public class TelaCliente extends JFrame {
         setVisible(true);
     }
 
-    // Atualiza o combo que exibe os produtos caso algum seja inserido ou removido
-    public static void atualizarComboProdutos(Listagem listagem) {
-        if (comboProdutos != null) {
-            comboProdutos.removeAllItems();
-            for (Produto p : listagem.getProdutos().values()) {
-                comboProdutos.addItem(p.getNome());
-            }
-        }
-    }
-
-    // Atualiza a área que exibe os itens do pedido
     private void atualizarAreaPedido() {
         tabelaModel.setRowCount(0);
 
@@ -155,7 +138,7 @@ public class TelaCliente extends JFrame {
 
         for (String nome : quantidadeMap.keySet()) {
             tabelaModel.addRow(new Object[]{
-                    nome, quantidadeMap.get(nome), String.format("R$ %.2f", valorMap.get(nome)), "REMOVER"
+                    nome, quantidadeMap.get(nome), String.format("R$ %.2f", valorMap.get(nome))
             });
         }
 
