@@ -56,7 +56,6 @@ Para executar a aplicação Java Café:
 	Adicionar produtos ao pedido.
 	Finalizar pedido e visualizar o total.
 	Mensagem de confirmação de pedido realizado com sucesso.
-	Opção para sair da tela do cliente.
 
 <h3>Tela do Gerente:</h3>
 
