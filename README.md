@@ -44,14 +44,11 @@ Para executar a aplicação Java Café:
  Ao executar a aplicação de acordo com a classe escolhida, uma janela se abrirá com as seguintes interfaces:
 
 <h2>Funcionalidades</h2>
-<h3>Tela do Cliente:</h3>
 
-**atualizar foto (tela do cliente)
+<h3>Tela do Cliente:</h3>
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/5d67570c-5c9f-423f-ae92-79dbbc03af12)
 
-
-**atualizar foto (pedido realizado)
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/ace2e8c5-c763-4344-81f4-c0140010aec8)
 
@@ -69,36 +66,26 @@ Para executar a aplicação Java Café:
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/eb75d091-c053-4770-b389-ac63356e6731)
 
  <p>Interface:</p>
- 
-**atualizar foto (tela do gerente)
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/56b97a8c-2e56-4a31-b8d6-a53166d6f554)
 
 
 <p>Cadastrar produto:</p>
 
-**atualizar foto (adicionar produto)
-
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/8c874603-8dd7-4115-bd0a-04f3aa65e5f7)
 
 
 <p>Atualizar produto:</p>
-
-**atualizar foto (atualizar produto)
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/4cd9fc99-f360-46b9-ab02-3e6fcb0c8477)
 
 
 Gerando Relatório de vendas:
 
-**atualizar foto (relatorio de vendas)
-
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/555c4ea0-292a-4a5a-8808-390635d34d67)
 
 
 Deletando um produto:
-
-**atualizar foto (excluir produto)
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/6e608492-bf92-4ad2-bec3-e97c54f4ed6f)
 
@@ -110,12 +97,18 @@ Deletando um produto:
 
 <h2>Estrutura do Projeto</h2>
 
-![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/aa22c07f-acca-4bbf-9eab-ad4d2bbca96a)
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/251c4891-3843-4005-a267-bae6d9732fca)
 
-	Caminhos.java: Define os caminhos para os arquivos de inventário e pedidos.
-	Listagem.java: Gerencia o inventário dos produtos.
-	ClienteMain.java: Classe que inicializa a aplicação do Cliente.
-	GerenteMain.java: Classe que inicializa a aplicação do Gerente.
-	Produto.java: Classe que representa um produto.
-	Ordem.java: Classe que representa um pedido.
-	Telas: Contém as classes das interfaces gráficas (TelaCliente e TelaGerente).
+	Main:
+		ClienteMain.java: Classe que inicializa a aplicação do Cliente.
+		GerenteMain.java: Classe que inicializa a aplicação do Gerente.
+  
+  	Paths:
+ 		Caminhos.java: Define os caminhos para os arquivos de inventário e pedidos.
+   
+   	Telas:
+ 		Listagem.java: Gerencia o inventário dos produtos.
+		Ordem.java: Classe que representa um pedido.
+ 		Produto.java: Classe que representa um produto.
+		TelaCliente.java: Contém a classe da interface gráfica TelaCliente.
+  		TelaGerente.java: Contém a classe da interface gráfica TelaGerente.
