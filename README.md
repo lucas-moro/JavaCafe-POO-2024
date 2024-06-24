@@ -63,8 +63,6 @@ Para executar a aplicação Java Café:
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/eb75d091-c053-4770-b389-ac63356e6731)
 
-**atualizar foto (tela do gerente)
-
  <p>Interface:</p>
  
 **atualizar foto (tela do gerente)
