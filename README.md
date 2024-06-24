@@ -69,7 +69,8 @@ Para executar a aplicação Java Café:
  
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/8de60462-bf9b-4b64-b77d-19ead24113c8)
 
-Adicionar/Atualizar um produto:
+<p>Adicionar/Atualizar um produto:</p>
+
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/30eb73c7-08b7-480d-9029-60194a301c2a)
 
 
