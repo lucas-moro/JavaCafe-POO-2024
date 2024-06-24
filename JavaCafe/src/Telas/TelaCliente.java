@@ -10,12 +10,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Classe que representa a interface gráfica do cliente para realizar pedidos de produtos.
+ */
 public class TelaCliente extends JFrame {
     private static Ordem ordemAtual;
     private static JTable tabelaPedido;
     private static DefaultTableModel tabelaModel;
     private static JLabel totalLabel;
 
+    /**
+     * Construtor que inicializa a tela do cliente.
+     * 
+     * @param listagem a lista de produtos disponíveis para compra
+     */
     public TelaCliente(Listagem listagem) {
         ordemAtual = new Ordem();
 
@@ -124,6 +132,9 @@ public class TelaCliente extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Atualiza a área que exibe os itens do pedido na tabela.
+     */
     private void atualizarAreaPedido() {
         tabelaModel.setRowCount(0);
 
