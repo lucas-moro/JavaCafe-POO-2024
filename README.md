@@ -41,7 +41,6 @@ Para executar a aplicação Java Café:
 
 	A janela do Java Café correspondente a sua escolha será aberta, permitindo que você navegue entre as opções.
 
- Ao executar a aplicação de acordo com a classe escolhida, uma janela se abrirá com as seguintes interfaces:
 
 <h2>Funcionalidades</h2>
 
