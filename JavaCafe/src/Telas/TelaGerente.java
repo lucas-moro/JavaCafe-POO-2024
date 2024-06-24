@@ -132,8 +132,18 @@ public class TelaGerente extends JFrame {
                 try {
                     preco = Double.parseDouble(precoField.getText());
                     quantidade = Integer.parseInt(quantidadeField.getText());
+
+                    if (preco <= 0) {
+                        JOptionPane.showMessageDialog(dialogoCadastro, "O preço deve ser um valor positivo.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (quantidade <= 0) {
+                        JOptionPane.showMessageDialog(dialogoCadastro, "A quantidade deve ser um valor positivo.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialogoCadastro, "Valor inválido. use um ponto (.) para números decimais.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialogoCadastro, "Entrada inválida. use um ponto (.) para números decimais.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -276,8 +286,17 @@ public class TelaGerente extends JFrame {
                 try {
                     preco = Double.parseDouble(precoField.getText());
                     quantidade = Integer.parseInt(quantidadeField.getText());
+
+                    if (preco <= 0) {
+                        JOptionPane.showMessageDialog(dialogoAtualizacao, "O preço deve ser um valor positivo.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (quantidade <= 0) {
+                        JOptionPane.showMessageDialog(dialogoAtualizacao, "A quantidade deve ser um valor positivo.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialogoAtualizacao, "Valor inválido. use um ponto (.) para números decimais.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialogoAtualizacao, "Entrada inválida. use um ponto (.) para números decimais.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -328,7 +347,7 @@ public class TelaGerente extends JFrame {
     public void atualizarTabelaEstoque() {
         tabelaModel.setRowCount(0); // Limpa a tabela
         for (Produto produto : listagem.getProdutos().values()) {
-            tabelaModel.addRow(new Object[]{produto.getNome(), String.format("%.2f", produto.getPreco()), produto.getQuantidade(), "Atualizar"});
+            tabelaModel.addRow(new Object[]{produto.getNome(), String.format("%.2f", produto.getPrecoComImposto()), produto.getQuantidade(), "Atualizar"});
         }
     }
 
