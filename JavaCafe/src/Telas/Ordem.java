@@ -96,7 +96,7 @@ public class Ordem implements Serializable {
     public void salvarPedido(String caminhoArquivo) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            writer.write("\n\n*******------------------------------*******\n");
+            writer.write("\n\n--------------------------------------------------------\n");
             writer.write("Data do Pedido: " + sdf.format(new Date()));
             writer.newLine();
             writer.newLine();
@@ -119,7 +119,7 @@ public class Ordem implements Serializable {
             writer.write("Valor             R$ " + String.format("%.2f", total));
             writer.newLine();
             writer.newLine();
-            writer.write("*******------------------------------*******");
+            writer.write("--------------------------------------------------------");
         }
     }
 
