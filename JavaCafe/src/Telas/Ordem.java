@@ -96,6 +96,7 @@ public class Ordem implements Serializable {
     public void salvarPedido(String caminhoArquivo) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            writer.write("\n\n*******------------------------------*******\n");
             writer.write("Data do Pedido: " + sdf.format(new Date()));
             writer.newLine();
             writer.newLine();
@@ -110,17 +111,15 @@ public class Ordem implements Serializable {
             }
 
             for (String nome : quantidadeMap.keySet()) {
-                writer.write(String.format("Produto: " + nome + " | Preço Unitário: " + precoMap.get(nome) + " | Quantidade: " + quantidadeMap.get(nome)));
+                writer.write(String.format("\nProduto: " + nome + "\nPreço Unitário: " + precoMap.get(nome) + "\nUnidades: " + quantidadeMap.get(nome)));
                 writer.newLine();
             }
 
             writer.newLine();
-            writer.write("VALOR             R$ " + String.format("%.2f", total));
+            writer.write("Valor             R$ " + String.format("%.2f", total));
             writer.newLine();
             writer.newLine();
-            writer.write("-------------------------------------------------------");
-            writer.newLine();
-            writer.newLine();
+            writer.write("*******------------------------------*******");
         }
     }
 
