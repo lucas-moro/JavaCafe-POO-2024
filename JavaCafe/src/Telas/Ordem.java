@@ -32,14 +32,15 @@ public class Ordem implements Serializable {
      * @param quantidade a quantidade do produto a ser adicionada
      */
     public void addItem(Produto produto, int quantidade) {
-        if (produto.getQuantidade() >= quantidade) {
+        if (produto.getQuantidade() < quantidade) {
+            JOptionPane.showMessageDialog(null, "Estoque insuficiente", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             produto.setQuantidade(produto.getQuantidade() - quantidade);
             for (int i = 0; i < quantidade; i++) {
                 itens.add(produto);
             }
-            total += produto.getPreco() * quantidade;
-        } else {
-            JOptionPane.showMessageDialog(null, "Nao sera possivel, temos apenas " + produto.getQuantidade() + " unidades \n no estoque para o produto " + produto.getNome(), "Estoque Insuficiente", JOptionPane.ERROR_MESSAGE);
+            total += produto.getPrecoComImposto() * quantidade;
         }
     }
 
@@ -56,7 +57,7 @@ public class Ordem implements Serializable {
             if (p.getNome().equals(nomeProduto) && count < quantidade) {
                 itens.remove(i);
                 p.setQuantidade(p.getQuantidade() + 1);
-                total -= p.getPreco();
+                total -= p.getPrecoComImposto();
                 count++;
             }
         }
@@ -107,7 +108,7 @@ public class Ordem implements Serializable {
 
             for (Produto p : itens) {
                 quantidadeMap.put(p.getNome(), quantidadeMap.getOrDefault(p.getNome(), 0) + 1);
-                precoMap.put(p.getNome(), p.getPreco());
+                precoMap.put(p.getNome(), p.getPrecoComImposto());
             }
 
             for (String nome : quantidadeMap.keySet()) {
@@ -132,7 +133,7 @@ public class Ordem implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Pedido:\n");
         for (Produto p : itens) {
-            sb.append(p.getNome()).append(" - R$ ").append(p.getPreco()).append("\n");
+            sb.append(p.getNome()).append(" - R$ ").append(p.getPrecoComImposto()).append("\n");
         }
         return sb.toString();
     }
