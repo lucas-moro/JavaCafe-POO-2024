@@ -69,7 +69,7 @@ public class TelaCliente extends JFrame {
             gbc.gridx = 0;
             gbc.gridy = row;
             gbc.weightx = 1.0; // Faz com que o label ocupe o espaço disponível
-            String produtoInfo = String.format("%s - R$ %.2f (Estoque: %d)", produto.getNome(), produto.getPreco(), produto.getQuantidade());
+            String produtoInfo = String.format("%s - R$ %.2f (Estoque: %d)", produto.getNome(), produto.getPrecoComImposto(), produto.getQuantidade());
             JLabel productLabel = new JLabel(produtoInfo);
             productsPanel.add(productLabel, gbc);
 
@@ -143,7 +143,7 @@ public class TelaCliente extends JFrame {
 
         for (Produto p : ordemAtual.getItens()) {
             quantidadeMap.put(p.getNome(), quantidadeMap.getOrDefault(p.getNome(), 0) + 1);
-            valorMap.put(p.getNome(), valorMap.getOrDefault(p.getNome(), 0.0) + p.getPreco());
+            valorMap.put(p.getNome(), valorMap.getOrDefault(p.getNome(), 0.0) + p.getPrecoComImposto());
         }
 
         for (String nome : quantidadeMap.keySet()) {
