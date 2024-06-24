@@ -55,7 +55,7 @@ public class TelaGerente extends JFrame {
                     if (confirm == JOptionPane.YES_OPTION) {
                         listagem.deletarProduto(nomeProduto);
                         atualizarTabelaEstoque();
-                        TelaCliente.atualizarComboProdutos(listagem);
+                        //TelaCliente.atualizarComboProdutos(listagem);
                     }
                 }
             }
@@ -140,7 +140,7 @@ public class TelaGerente extends JFrame {
                 }
 
                 atualizarTabelaEstoque(); // Atualiza a tabela de estoque na tela de gerente
-                TelaCliente.atualizarComboProdutos(listagem); // Atualiza o combo de produtos na tela de cliente
+                //TelaCliente.atualizarComboProdutos(listagem); // Atualiza o combo de produtos na tela de cliente
 
                 dialogoCadastro.dispose(); // Fecha o diálogo de cadastro
             }
