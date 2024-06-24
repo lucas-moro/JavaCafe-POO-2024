@@ -26,7 +26,6 @@ public class TelaCliente extends JFrame {
 
         JButton finalizarButton = new JButton("Finalizar Pedido");
 
-        // Modelo da tabela de pedidos, removendo a coluna "Remover"
         tabelaModel = new DefaultTableModel(new Object[]{"Produto", "Quantidade", "Valor"}, 0);
         tabelaPedido = new JTable(tabelaModel);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
