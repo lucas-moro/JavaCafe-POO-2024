@@ -51,7 +51,6 @@ Para executar a aplicação Java Café:
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/6da9c2c3-2f7d-490d-8bb3-43b2338a24b7)
 
 
-
 	Selecionar produtos e quantidades.
 	Adicionar produtos ao pedido.
 	Finalizar pedido e visualizar o total.
@@ -64,12 +63,7 @@ Para executar a aplicação Java Café:
 
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/eb75d091-c053-4770-b389-ac63356e6731)
 
-
-	Visualizar e atualizar o estoque de produtos.
-	Adicionar ou atualizar produtos no inventário.
-	Excluir produtos do inventário.
-	Visualizar relatório de vendas.
-	Aviso de estoque baixo para produtos com quantidade menor ou igual a 2.
+![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/8b7eb1b0-c65d-4eb7-a986-3abf7fc56dab)
 
  <p>Interface:</p>
  
@@ -87,6 +81,11 @@ Gerando Relatório de vendas:
 Deletando um produto:
 ![image](https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/aeb218b3-ebd1-4a20-85f4-bf0ca0841b9c)
 
+	Visualizar e atualizar o estoque de produtos.
+	Adicionar ou atualizar produtos no inventário.
+	Excluir produtos do inventário.
+	Visualizar relatório de vendas.
+	Aviso de estoque baixo para produtos com quantidade menor ou igual a 2.
 
 <h2>Estrutura do Projeto</h2>
 
