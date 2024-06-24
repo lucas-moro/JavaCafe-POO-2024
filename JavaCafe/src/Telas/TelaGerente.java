@@ -49,69 +49,78 @@ public class TelaGerente extends JFrame {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 int row = tabelaEstoque.rowAtPoint(e.getPoint());
                 int column = tabelaEstoque.columnAtPoint(e.getPoint());
-                if (column == 3) { // Coluna "Excluir"
+                if (column == 3) { // Coluna "Atualizar"
                     String nomeProduto = (String) tabelaModel.getValueAt(row, 0);
-                    int confirm = JOptionPane.showConfirmDialog(null, "Você realmente deseja excluir o produto " + nomeProduto + "?", "Confirmar Exclusão", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        listagem.deletarProduto(nomeProduto);
-                        atualizarTabelaEstoque();
-                        //TelaCliente.atualizarComboProdutos(listagem);
+                    Produto produto = listagem.pesquisarProduto(nomeProduto);
+                    if (produto != null) {
+                        abrirDialogoAtualizacao(produto);
                     }
                 }
             }
         });
 
-        // Configuração do painel
+        // Configuração dos paineis
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JScrollPane(tabelaEstoque), BorderLayout.CENTER);
 
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+
         // Configuração dos botões no painel
-        JButton cadastrarButton = new JButton("Adicionar / Atualizar Produto");
+        JButton cadastrarButton = new JButton("Cadastrar Produto");
+        cadastrarButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
         cadastrarButton.addActionListener(e -> abrirDialogoCadastro());
+        bottomPanel.add(cadastrarButton);
+
+        JButton excluirButton = new JButton("Excluir Produto");
+        excluirButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        excluirButton.addActionListener(e -> abrirDialogoExclusao());
+        bottomPanel.add(excluirButton);
+
         JButton relatorioButton = new JButton("Relatório de Vendas");
+        relatorioButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
         relatorioButton.addActionListener(e -> exibirRelatorioVendas());
-        JButton sairButton = new JButton("Sair");
-        sairButton.addActionListener(e -> dispose()); // Fecha a janela atual
+        bottomPanel.add(relatorioButton);
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(relatorioButton);
-        topPanel.add(cadastrarButton);
-        topPanel.add(sairButton);
-
-        add(topPanel, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
+
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - getWidth()) / 2;
         int y = (screenSize.height - getHeight()) / 2;
         setLocation(x, y);
         setVisible(true);
-
-        // Verifica os estoques para exibir o alerta
-        verificarEstoqueBaixo();
     }
 
     /**
      * Abre o diálogo de cadastro de produtos.
      */
     private void abrirDialogoCadastro() {
-        JDialog dialogoCadastro = new JDialog(this, "Adicionar / Atualizar Produto", true);
-        dialogoCadastro.setSize(350, 300);
+        JDialog dialogoCadastro = new JDialog(this, "Cadastrar Produto", true);
+        dialogoCadastro.setSize(300, 300);
         dialogoCadastro.setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 2));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // Configuração dos elementos no painel
         JLabel nomeLabel = new JLabel("Nome do Produto:");
+        nomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
         JTextField nomeField = new JTextField();
-        JLabel precoLabel = new JLabel("Preço do Produto:");
-        JTextField precoField = new JTextField();
-        JLabel quantidadeLabel = new JLabel("Quantidade:");
-        JTextField quantidadeField = new JTextField();
-        JButton cadastrarButton = new JButton("Adicionar/Atualizar");
 
-        // Escuta de ações no botão de cadastrar/atualizar
+        JLabel precoLabel = new JLabel("Preço do Produto:");
+        precoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        JTextField precoField = new JTextField();
+
+        JLabel quantidadeLabel = new JLabel("Quantidade:");
+        quantidadeLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        JTextField quantidadeField = new JTextField();
+
+        JButton cadastrarButton = new JButton("Cadastrar Produto");
+        cadastrarButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+
+        // Escuta de ações no botão de cadastrar
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,14 +133,14 @@ public class TelaGerente extends JFrame {
                     preco = Double.parseDouble(precoField.getText());
                     quantidade = Integer.parseInt(quantidadeField.getText());
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialogoCadastro, "Por favor, insira valores válidos. O preço deve ser um número com ponto (.) e a quantidade deve ser um número inteiro.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialogoCadastro, "Valor inválido. use um ponto (.) para números decimais.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 // Cria um novo objeto Produto com os dados fornecidos
                 Produto produto = new Produto(nome, preco, quantidade);
                 listagem.addProduto(produto); // Adiciona o produto à listagem
-                JOptionPane.showMessageDialog(dialogoCadastro, "Produto cadastrado/atualizado com sucesso!");
+                JOptionPane.showMessageDialog(dialogoCadastro, "Produto cadastrado com sucesso!");
 
                 try {
                     listagem.salvarInv(Caminhos.INVENTARIO_FILE); // Salva o inventário atualizado
@@ -140,23 +149,28 @@ public class TelaGerente extends JFrame {
                 }
 
                 atualizarTabelaEstoque(); // Atualiza a tabela de estoque na tela de gerente
-                //TelaCliente.atualizarComboProdutos(listagem); // Atualiza o combo de produtos na tela de cliente
-
                 dialogoCadastro.dispose(); // Fecha o diálogo de cadastro
             }
         });
 
-        // Adiciona os elementos no painel
+        // Adiciona os elementos no painel com espaçamento
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento superior
         panel.add(nomeLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5))); // Espaçamento entre label e field
         panel.add(nomeField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento entre os conjuntos de componentes
         panel.add(precoLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
         panel.add(precoField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(quantidadeLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
         panel.add(quantidadeField);
-        panel.add(new JLabel()); // Espaço em branco para ajuste de layout
+        panel.add(Box.createRigidArea(new Dimension(0, 20))); // Espaçamento antes do botão
         panel.add(cadastrarButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento inferior
 
-        dialogoCadastro.add(panel, BorderLayout.CENTER);
+        dialogoCadastro.add(panel);
 
         // Centraliza o diálogo na tela
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -165,55 +179,197 @@ public class TelaGerente extends JFrame {
     }
 
     /**
-     * Exibe o relatório de vendas em uma nova janela.
+     * Abre o diálogo de exclusão de produtos.
      */
-    private void exibirRelatorioVendas() {
-        JFrame relatorioFrame = new JFrame("Relatório");
-        relatorioFrame.setSize(320, 400);
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
+    private void abrirDialogoExclusao() {
+        JDialog dialogoExclusao = new JDialog(this, "Excluir Produto", true);
+        dialogoExclusao.setSize(300, 150);
+        dialogoExclusao.setLayout(new BorderLayout());
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(Caminhos.PEDIDOS_FILE))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                textArea.append(linha + "\n");
-            }
-        } catch (IOException e) {
-            textArea.append("Erro ao carregar o relatório de vendas: " + e.getMessage());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel selectLabel = new JLabel("Selecione o Produto:");
+        selectLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        JComboBox<String> produtoComboBox = new JComboBox<>();
+        for (Produto produto : listagem.getProdutos().values()) {
+            produtoComboBox.addItem(produto.getNome());
         }
 
-        relatorioFrame.add(new JScrollPane(textArea), BorderLayout.CENTER);
-        relatorioFrame.setVisible(true);
-        relatorioFrame.setLocationRelativeTo(this);
+        JButton excluirButton = new JButton("Excluir Produto");
+        excluirButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+
+        excluirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nomeProduto = (String) produtoComboBox.getSelectedItem();
+                int confirm = JOptionPane.showConfirmDialog(dialogoExclusao, "Tem certeza que deseja excluir o produto " + nomeProduto + "?", "Confirmação de Exclusão", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    listagem.deletarProduto(nomeProduto);
+                    JOptionPane.showMessageDialog(dialogoExclusao, "Produto excluído com sucesso!");
+
+                    try {
+                        listagem.salvarInv(Caminhos.INVENTARIO_FILE); // Salva o inventário atualizado
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    atualizarTabelaEstoque(); // Atualiza a tabela de estoque na tela de gerente
+                    dialogoExclusao.dispose(); // Fecha o diálogo de exclusão
+                }
+            }
+        });
+
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento superior
+        panel.add(selectLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(produtoComboBox);
+        panel.add(Box.createRigidArea(new Dimension(0, 20))); // Espaçamento antes do botão
+        panel.add(excluirButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento inferior
+
+        dialogoExclusao.add(panel);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        dialogoExclusao.setLocation((screenSize.width - dialogoExclusao.getWidth()) / 2, (screenSize.height - dialogoExclusao.getHeight()) / 2);
+        dialogoExclusao.setVisible(true);
     }
 
     /**
-     * Obtém a instância única de TelaGerente.
-     * @return A instância de TelaGerente
+     * Abre o diálogo de atualização de produtos.
+     * @param produto O produto que será atualizado.
      */
-    public static TelaGerente getInstance() {
-        return instance;
+    private void abrirDialogoAtualizacao(Produto produto) {
+        JDialog dialogoAtualizacao = new JDialog(this, "Atualizar Produto", true);
+        dialogoAtualizacao.setSize(300, 300);
+        dialogoAtualizacao.setLayout(new BorderLayout());
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // Configuração dos elementos no painel
+        JLabel nomeLabel = new JLabel("Nome do Produto:");
+        nomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        JTextField nomeField = new JTextField(produto.getNome());
+        nomeField.setEnabled(false); // Nome não pode ser alterado
+
+        JLabel precoLabel = new JLabel("Preço do Produto:");
+        precoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        JTextField precoField = new JTextField(String.valueOf(produto.getPreco()));
+
+
+        JLabel quantidadeLabel = new JLabel("Quantidade:");
+        quantidadeLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+        JTextField quantidadeField = new JTextField(String.valueOf(produto.getQuantidade()));
+
+        JButton atualizarButton = new JButton("Atualizar Produto");
+        atualizarButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza horizontalmente
+
+        // Escuta de ações no botão de atualizar
+        atualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double preco;
+                int quantidade;
+
+                // Tentativa de converter texto para números
+                try {
+                    preco = Double.parseDouble(precoField.getText());
+                    quantidade = Integer.parseInt(quantidadeField.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(dialogoAtualizacao, "Valor inválido. use um ponto (.) para números decimais.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Atualiza o objeto Produto com os novos dados
+                Produto produtoAtualizado = new Produto(produto.getNome(), preco, quantidade);
+                listagem.addProduto(produtoAtualizado); // Atualiza o produto na listagem
+                JOptionPane.showMessageDialog(dialogoAtualizacao, "Produto atualizado com sucesso!");
+
+                try {
+                    listagem.salvarInv(Caminhos.INVENTARIO_FILE); // Salva o inventário atualizado
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                atualizarTabelaEstoque(); // Atualiza a tabela de estoque na tela de gerente
+                dialogoAtualizacao.dispose(); // Fecha o diálogo de atualização
+            }
+        });
+
+        // Adiciona os elementos no painel com espaçamento
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento superior
+        panel.add(nomeLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5))); // Espaçamento entre label e field
+        panel.add(nomeField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento entre os conjuntos de componentes
+        panel.add(precoLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(precoField);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(quantidadeLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(quantidadeField);
+        panel.add(Box.createRigidArea(new Dimension(0, 20))); // Espaçamento antes do botão
+        panel.add(atualizarButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento inferior
+
+        dialogoAtualizacao.add(panel);
+
+        // Centraliza o diálogo na tela
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        dialogoAtualizacao.setLocation((screenSize.width - dialogoAtualizacao.getWidth()) / 2, (screenSize.height - dialogoAtualizacao.getHeight()) / 2);
+        dialogoAtualizacao.setVisible(true);
     }
 
     /**
-     * Atualiza a tabela de estoque com os dados do inventário.
+     * Atualiza a tabela de estoque com os produtos atuais.
      */
     public void atualizarTabelaEstoque() {
         tabelaModel.setRowCount(0); // Limpa a tabela
-        for (Produto p : listagem.getProdutos().values()) {
-            tabelaModel.addRow(new Object[]{p.getNome(), String.format("%.2f", p.getPreco()), p.getQuantidade(), "DELETAR"});
+        for (Produto produto : listagem.getProdutos().values()) {
+            tabelaModel.addRow(new Object[]{produto.getNome(), String.format("%.2f", produto.getPreco()), produto.getQuantidade(), "Atualizar"});
         }
-        verificarEstoqueBaixo();
     }
 
     /**
-     * Verifica se algum produto no inventário está com o estoque baixo e exibe um aviso.
+     * Exibe o relatório de vendas.
      */
-    private void verificarEstoqueBaixo() {
-        for (Produto p : listagem.getProdutos().values()) {
-            if (p.getQuantidade() <= 2) {
-                JOptionPane.showMessageDialog(this, "O estoque do produto " + p.getNome() + " está baixo. Por favor, reponha o estoque.", "Aviso de Estoque Baixo", JOptionPane.WARNING_MESSAGE);
+    private void exibirRelatorioVendas() {
+        // Carrega os dados do arquivo de relatório de vendas
+        String filePath = Caminhos.PEDIDOS_FILE;
+        StringBuilder relatorioTexto = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                relatorioTexto.append(linha).append("\n");
             }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar o relatório de vendas.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Cria uma nova janela para exibir o relatório
+        JDialog dialogRelatorio = new JDialog(this, "Relatório de Vendas", true);
+        dialogRelatorio.setSize(500, 400);
+        dialogRelatorio.setLayout(new BorderLayout());
+
+        JTextArea textArea = new JTextArea(relatorioTexto.toString());
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        dialogRelatorio.add(scrollPane, BorderLayout.CENTER);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        dialogRelatorio.setLocation((screenSize.width - dialogRelatorio.getWidth()) / 2, (screenSize.height - dialogRelatorio.getHeight()) / 2);
+        dialogRelatorio.setVisible(true);
+    }
+    /**
+     * Retorna a instância atual da tela do gerente.
+     * @return A instância da tela do gerente.
+     */
+    public static TelaGerente getInstance() {
+        return instance;
     }
 }
