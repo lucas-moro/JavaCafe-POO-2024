@@ -1,3 +1,8 @@
+Grupo 14:
+- Bianca Gonçalves Dizio n° USP: 12732145
+- Lucas Moro Iroldi n° USP: 13832614
+- Murilo Genghi Rossi  n° USP: 14599915
+
 <p align="center"><img src="https://github.com/lucas-moro/JavaCafe-POO-2024/assets/88462534/bcd5e6ec-54e6-4508-88e7-7026c1f5573f" alt="java-logo-1" width="200"></p>
 
 <h2><p align="center">Java Café</p></h2>
